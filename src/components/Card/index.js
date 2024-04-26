@@ -15,15 +15,13 @@ const CardCategories = (props) => {
   const { src, srcChange, to, title, description, price } = props;
   const [srcImage, setSrcImage] = useState(src);
   const cambiarImagen = () => {
-    console.log("entro");
     if (srcImage === src) {
       setSrcImage(srcChange);
     } else {
       setSrcImage(src);
     }
-    console.log("srcImageentro", srcImage);
   };
- 
+
   return (
     <div className="class-card-categories" key={`key${title}`}>
       <div className="class-img-item-category">

@@ -1,63 +1,48 @@
-import React from "react";
-import { Row, Col, Skeleton, Typography, Tooltip } from "antd";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Row, Col, notification, Skeleton } from "antd";
 import Card from "../../components/Card/index";
-import map from 'lodash/map';
+import map from "lodash/map";
+import { productsListAction } from "./reducers/ListReducer";
+import { getProducts } from "../../api/list";
+import { openNotificationSuccess } from "../../utils";
 
 const List = () => {
-  const datos = [
-    {
-      src: "https://assets.adidas.com/images/w_383,h_383,f_auto,q_auto,fl_lossy,c_fill,g_auto/c19714ef84624c6e9fd171e5c17e123b_9366/adicolor-3-stripes-corset.jpg",
-      title: "Adicolor 3-Stripes Corset",
-      to: "https://www.adidas.com/us/adicolor-3-stripes-corset/IN8371.html",
-      description: "Women's Originals",
-      price: "$20",
-      srcChange:
-        "https://assets.adidas.com/images/w_180,f_auto,q_auto,fl_lossy,c_fill,g_auto/a9f0b5a54f3247e886b59792c5430703_9366/Adicolor_3-Stripes_Corset_Black_IU2407_21_model.jpg",
-    },
-    {
-      src: "https://assets.adidas.com/images/w_383,h_383,f_auto,q_auto,fl_lossy,c_fill,g_auto/c19714ef84624c6e9fd171e5c17e123b_9366/adicolor-3-stripes-corset.jpg",
-      title: "Adicolor 3-Stripes Corset",
-      to: "https://www.adidas.com/us/adicolor-3-stripes-corset/IN8371.html",
-      description: "Women's Originals",
-      price: "$20",
-      srcChange:
-        "https://assets.adidas.com/images/w_180,f_auto,q_auto,fl_lossy,c_fill,g_auto/a9f0b5a54f3247e886b59792c5430703_9366/Adicolor_3-Stripes_Corset_Black_IU2407_21_model.jpg",
-    },
-    {
-      src: "https://assets.adidas.com/images/w_383,h_383,f_auto,q_auto,fl_lossy,c_fill,g_auto/c19714ef84624c6e9fd171e5c17e123b_9366/adicolor-3-stripes-corset.jpg",
-      title: "Adicolor 3-Stripes Corset",
-      to: "https://www.adidas.com/us/adicolor-3-stripes-corset/IN8371.html",
-      description: "Women's Originals",
-      price: "$20",
-      srcChange:
-        "https://assets.adidas.com/images/w_180,f_auto,q_auto,fl_lossy,c_fill,g_auto/a9f0b5a54f3247e886b59792c5430703_9366/Adicolor_3-Stripes_Corset_Black_IU2407_21_model.jpg",
-    },
-    {
-      src: "https://assets.adidas.com/images/w_383,h_383,f_auto,q_auto,fl_lossy,c_fill,g_auto/c19714ef84624c6e9fd171e5c17e123b_9366/adicolor-3-stripes-corset.jpg",
-      title: "Adicolor 3-Stripes Corset",
-      to: "https://www.adidas.com/us/adicolor-3-stripes-corset/IN8371.html",
-      description: "Women's Originals",
-      price: "$20",
-      srcChange:
-        "https://assets.adidas.com/images/w_180,f_auto,q_auto,fl_lossy,c_fill,g_auto/a9f0b5a54f3247e886b59792c5430703_9366/Adicolor_3-Stripes_Corset_Black_IU2407_21_model.jpg",
-    },
-    {
-      src: "https://assets.adidas.com/images/w_383,h_383,f_auto,q_auto,fl_lossy,c_fill,g_auto/c19714ef84624c6e9fd171e5c17e123b_9366/adicolor-3-stripes-corset.jpg",
-      title: "Adicolor 3-Stripes Corset",
-      to: "https://www.adidas.com/us/adicolor-3-stripes-corset/IN8371.html",
-      description: "Women's Originals",
-      price: "$20",
-      srcChange:
-        "https://assets.adidas.com/images/w_180,f_auto,q_auto,fl_lossy,c_fill,g_auto/a9f0b5a54f3247e886b59792c5430703_9366/Adicolor_3-Stripes_Corset_Black_IU2407_21_model.jpg",
-    },
-  ];
-  return (
+  const dispatch = useDispatch();
+  const list = useSelector((state) => state.productsList);
+  const [isLoadinProducts, setIsLoadingProducts] = useState(false);
+  const [dataListPoducts, setDataListProducts] = useState(list);
+
+  const [api] = notification.useNotification();
+  useEffect(() => {
+    getProducts(
+      setIsLoadingProducts,
+      setDataListProducts,
+      openNotificationSuccess,
+      dispatch,
+      productsListAction,
+      api
+    );
+  }, [api, dispatch]);
+
+  return !isLoadinProducts ? (
     <Row
       className="app-row-categories"
       gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}
     >
-      {map(datos, (args, index) => {
-        const { src, srcChange, title, to, description, price } = args;
+      {map(dataListPoducts, (args, index) => {
+        const {
+          Name,
+          Category,
+          Image1,
+          to,
+          Color_detail: image2 = [],
+          Price,
+        } = args;
+        const srcSSource = map(
+          image2,
+          (args, index) => args.image_url
+        );
         return (
           <Col
             className="item-categories"
@@ -73,30 +58,19 @@ const List = () => {
           >
             <Card
               className="card-container"
-              src={src}
-              srcChange={srcChange}
-              title={title}
+              src={Image1}
+              srcChange={srcSSource[0]}
+              title={Name}
               to={to}
-              description={description}
-              price={price}
+              description={Category}
+              price={Price}
             />
           </Col>
         );
       })}
     </Row>
-    // <Card
-    //   className="card-container"
-    //   src={
-    //     "https://assets.adidas.com/images/w_383,h_383,f_auto,q_auto,fl_lossy,c_fill,g_auto/c19714ef84624c6e9fd171e5c17e123b_9366/adicolor-3-stripes-corset.jpg"
-    //   }
-    //   srcChange={
-    //     "https://assets.adidas.com/images/w_180,f_auto,q_auto,fl_lossy,c_fill,g_auto/a9f0b5a54f3247e886b59792c5430703_9366/Adicolor_3-Stripes_Corset_Black_IU2407_21_model.jpg"
-    //   }
-    //   title={"Adicolor 3-Stripes Corset"}
-    //   to={"https://www.adidas.com/us/adicolor-3-stripes-corset/IN8371.html"}
-    //   description={"Women's Originals"}
-    //   price="$20"
-    // />
+  ) : (
+    <Skeleton />
   );
 };
 
