@@ -1,18 +1,18 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-export const ListReducer = createSlice({
-  name: "list",
+export const productsListReducer = createSlice({
+  name: "productsList",
   initialState: {
     value: [],
   },
   reducers: {
-    listAction: (state, action) => {
+    productsListAction: (state, action) => {
       state.value = action.payload;
     },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { listAction } = ListReducer.actions;
-
-export default ListReducer.reducer;
+export const { productsListAction } = productsListReducer.actions;
+console.log(productsListAction);
+export default productsListReducer.reducer;
