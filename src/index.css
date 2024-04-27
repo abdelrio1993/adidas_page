@@ -1,4 +1,3 @@
-
 .ant-card-cover img {
   max-height: 20rem;
   max-width: 15rem;
@@ -96,12 +95,12 @@
 }
 
 .class-search .ant-input-wrapper .ant-input:focus {
-  border-color: black; 
-  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.2); 
+  border-color: black;
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.2);
 }
 
 .class-search .ant-input-wrapper .ant-input:hover {
-  border-color: black; 
+  border-color: black;
 }
 
 .class-search .ant-input-group-addon > button {
@@ -186,7 +185,7 @@
   transition: transform 0.3s ease;
 }
 .class-img-item-category:hover .class-price {
-  transform: scale(1); 
+  transform: scale(1);
 }
 
 .class-title-item-category,
@@ -197,4 +196,125 @@
 /*LIST*/
 .app-row-categories {
   margin: 2rem;
+}
+
+/*DETAILS*/
+.imgWrapper4 {
+  font-size: 0;
+  text-align: initial;
+}
+.imgWrapper4 .imgpRroduct1 {
+  display: inline-block;
+  font-size: inherit;
+}
+.imgWrapper4 .imgpRroduct2 {
+  display: inline-block;
+  font-size: inherit;
+}
+.imgWrapper4 .imgpRroduct1 {
+  width: 50%;
+  height: 50%;
+  max-width: 500px;
+  max-height: 500px;
+  margin: 1px;
+}
+.imgWrapper4 .imgpRroduct2 {
+  width: 50%;
+  height: 50%;
+  max-width: 500px;
+  max-height: 500px;
+  margin: 1px;
+}
+
+.imgpRroduct1 img {
+  height: auto;
+  width: 100%;
+}
+.imgpRroduct2 img {
+  height: auto;
+  width: 100%;
+}
+
+.sider-comp {
+  text-align: center;
+  line-height: 120px;
+  color: #fff;
+  background-color: #1677ff;
+}
+
+/*COLLAPSE*/
+.app-collapse-no-bdr {
+  border: none;
+  background-color: #fff;
+}
+.ant-descriptions-header {
+  margin-bottom: 1rem;
+}
+.ant-collapse {
+  width: 62%;
+  margin-top: 2rem;
+}
+.ant-collapse-header-text {
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.contenedor-Description {
+  display: grid;
+  grid-template-columns: auto auto;
+  gap: 20px;
+}
+.item {
+  width: 14rem;
+}
+.general-information {
+  position: fixed;
+  top: 76px;
+  right: 40px;
+  padding: 20px;
+  width: 30%;
+}
+.description_title {
+  font-size: 24px;
+  text-transform: uppercase;
+}
+.description_title,
+.price_title,
+.promo_apply,
+.general-buttom,
+.descriptions-1,
+.descriptions-2,
+.descriptions-3,
+.general-descriptions,
+.general-buttoms,
+.sizes {
+  text-align: left;
+}
+
+.promo_apply {
+  margin-top: 2rem;
+}
+.buttom-size {
+  border-radius: 0;
+  border-color: #201733;
+}
+.buttom-size:hover {
+  /* border-radius: 0;
+  border-color: #201733; */
+  background-color: black;
+  color: #fff;
+}
+.general-descriptions {
+  margin-top: 2rem;
+}
+.descriptions-2,
+.descriptions-3 {
+  text-decoration: underline;
+  cursor: pointer;
+}
+.anticon.anticon-shopping-cart {
+  padding-right: 2rem;
+}
+.anticon.anticon-select {
+  padding-right: 2rem;
 }
