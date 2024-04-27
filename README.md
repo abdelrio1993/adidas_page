@@ -18,11 +18,6 @@ Run the following command from the project root:
 
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-# Start Test.
-Run the following command from the project root:
-
-`npm test -- --coverage`
-
 # Start build.
 
 `npm run build`
