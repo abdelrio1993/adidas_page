@@ -1,30 +1,11 @@
-import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Row, Col, notification, Skeleton } from "antd";
+import React from "react";
+import PropTypes from "prop-types";
+import { Row, Col, Skeleton } from "antd";
 import Card from "../../components/Card/index";
 import map from "lodash/map";
-import { productsListAction } from "./reducers/ListReducer";
-import { getProducts } from "../../api/list";
-import { openNotificationSuccess } from "../../utils";
 
-const List = () => {
-  const dispatch = useDispatch();
-  const list = useSelector((state) => state.productsList);
-  const [isLoadinProducts, setIsLoadingProducts] = useState(false);
-  const [dataListPoducts, setDataListProducts] = useState(list);
-
-  const [api] = notification.useNotification();
-  useEffect(() => {
-    getProducts(
-      setIsLoadingProducts,
-      setDataListProducts,
-      openNotificationSuccess,
-      dispatch,
-      productsListAction,
-      api
-    );
-  }, [api, dispatch]);
-
+const List = (props) => {
+  const { dataListPoducts, isLoadinProducts } = props;
   return !isLoadinProducts ? (
     <Row
       className="app-row-categories"
@@ -35,14 +16,12 @@ const List = () => {
           Name,
           Category,
           Image1,
-          to,
+          to = "details",
           Color_detail: image2 = [],
           Price,
         } = args;
-        const srcSSource = map(
-          image2,
-          (args, index) => args.image_url
-        );
+        const srcSource = map(image2, (args, index) => args.image_url);
+
         return (
           <Col
             className="item-categories"
@@ -59,7 +38,7 @@ const List = () => {
             <Card
               className="card-container"
               src={Image1}
-              srcChange={srcSSource[0]}
+              srcChange={srcSource[0]}
               title={Name}
               to={to}
               description={Category}
@@ -72,6 +51,11 @@ const List = () => {
   ) : (
     <Skeleton />
   );
+};
+
+List.propTypes = {
+  dataListPoducts: PropTypes.array.isRequired,
+  isLoadinProducts: PropTypes.bool,
 };
 
 export default List;
